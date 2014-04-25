@@ -1,0 +1,78 @@
+extends layout
+
+block content
+
+	body
+		.navbar.navbar-default.navbar-fixed-top(role='navigation')
+			.container
+				.navbar-header
+					button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+						span.sr-only Toggle navigation
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+					a.navbar-brand(href='#') Coding House
+				ul.nav.navbar-nav.navbar-right
+					li
+						a(href='../navbar/') Account Management
+					li
+						a(href='../navbar/') Assignments
+					li.active
+						a(href='./') Restaurant
+
+	.orderSubmit
+		title Order Submission Form
+
+		h1.text-center Menu Order
+		h2.text-center Restaurant Name
+
+		form#formAddOrder(class="formOS" name="addOrder", action"/addOrder", method="post")
+			p.menuList-1
+				label
+					input(type='radio', placeholder="menu item", name="order" value='1')
+					| 	Item1
+				label
+					input(type='radio', placeholder="menu item", name="order" value='2')
+					| 	Item2
+				label
+					input(type='radio', placeholder="menu item", name="order" value='3')
+					| 	Item3
+				label
+					input(type='radio', placeholder="menu item", name="order" value='4')
+					| 	Item4
+				label
+					input(type='radio', placeholder="menu item", name="order" value='5')
+					| 	Item5
+				label
+					input(type='radio', placeholder="menu item", name="order" value='6')
+					| 	Item6
+				label
+					input(type='radio', placeholder="menu item", name="order" value='7')
+					| 	Item7
+				label
+					input(type='radio', placeholder="menu item", name="order" value='8')
+					| 	Item8
+				label
+					input(type='radio', placeholder="menu item", name="order" value='9')
+					| 	Item9
+				label
+					input(type='radio', placeholder="menu item", name="order" value='10')
+					| 	Item10
+				label
+					input(type='radio', placeholder="menu item", name="order" value='11')
+					| 	Item11
+				label
+					input(type='radio', placeholder="menu item", name="order" value='12')
+					| 	Item12
+			.submitSec1
+				input(type="text" class="form-control commentOrder" id="userComments" placeholder="Special Request")
+				button.btn.btn-default(data-action="order", type="submit") Submit Order
+
+		script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js")
+		script.
+					window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')
+		script(src="js/vendor/bootstrap.min.js")
+		script(src="js/main.js")
+
+		script.
+					(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]= function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create','UA-XXXXX-X');ga('send','pageview');
