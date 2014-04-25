@@ -252,26 +252,57 @@ router.get('/userlist', function(req, res) {
     });
 });
 
-/* SHOW Assignments home page. */
-router.get('/assignments', function (req, res) {
-    res.render('assignments', { title: 'Assignments' });
-});
 
 /* SHOW Phase1Sprint1 page. */
 router.get('/ph1sp1', function (req, res) {
     var db = req.db;
     var collection = db.get('assignmentcollection');
     collection.find({},{},function(e,docs){
-        console.log("docs = " + docs);
-        console.log("docs = " + docs[0].phase);
-        console.log("docs = " + docs[2].phase);
-
+        console.log("docs11 = " + docs);
+        console.log("docs11 = " + docs[0].phase);
+        console.log("docs11 = " + docs[2].phase);
 
         res.render('ph1sp1', {
             "questions" : docs,
-            "title": "Phase 1 Assignments"
+            "tasks" : docs
         });
+
     });
+});
+
+/* POST to Add task ph1sp1 */
+router.post('/addTaskSave11', function(req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    var taskInput = req.body.inputTask;
+    console.log("Task is =" + taskInput);
+
+
+    // Set our collection
+    var collection = db.get('assignmentcollection');
+
+    // Submit to the DB
+    collection.update(
+        { phase: "phase1", sprint: "sprint1" },
+        { $push: { tasklist : { task : taskInput }}},
+        function (err, doc) {
+            if (err) {
+                console.log("error saving sprint 1 to the database");
+
+                // If it failed, return error
+                res.send("There was a problem saving sprint 1 to the database.");
+            }
+            else {
+                console.log("inserted comments: " + taskInput);
+
+                // If it worked, set the header so the address bar doesn't still say /adduser
+                res.location("ph1sp1admin");
+                // And forward to success page
+                res.redirect("ph1sp1admin");
+            }
+        });
 });
 
 /* POST to Add Question ph1sp1 */
@@ -315,8 +346,10 @@ router.get('/ph1sp2', function (req, res) {
     var db = req.db;
     var collection = db.get('assignmentcollection');
     collection.find({},{},function(e,docs){
-        console.log("docs = " + docs);
-        console.log("docs = " + docs[1].sprint);
+        console.log("docs12 = " + docs);
+        console.log("docs12 = " + docs[1].sprint);
+        console.log("docs12 = " + docs[1].sprint);
+
 
         res.render('ph1sp2', {
             "questions" : docs,
@@ -365,8 +398,10 @@ router.get('/ph2sp1', function (req, res) {
     var db = req.db;
     var collection = db.get('assignmentcollection');
     collection.find({},{},function(e,docs){
-        console.log("docs = " + docs);
-        console.log("docs = " + docs[2].sprint);
+        console.log("docs21 = " + docs);
+        console.log("docs21 = " + docs[2].sprint);
+        console.log("docs21 = " + docs);
+
 
         res.render('ph2sp1', {
             "questions" : docs,
@@ -415,8 +450,10 @@ router.get('/ph2sp2', function (req, res) {
     var db = req.db;
     var collection = db.get('assignmentcollection');
     collection.find({},{},function(e,docs){
-        console.log("docs = " + docs);
-        console.log("docs = " + docs[3].sprint);
+        console.log("docs22 = " + docs);
+        console.log("docs22 = " + docs[3].sprint);
+        console.log("docs22 = " + docs[3].sprint);
+
 
         res.render('ph2sp2', {
             "questions" : docs,
@@ -460,45 +497,91 @@ router.post('/addQuestionSave22', function(req, res) {
         });
 });
 
-
-/* SHOW Phase1Admin page. */
-//router.get('/ph1sp1admin', function (req, res) {
-//    res.render('ph1sp1admin', { title: 'Phase 1 Assign | Admin' });
-//});
-
 /* GET Phase1Sprint1Admin Questions page. */
 router.get('/ph1sp1admin', function (req, res) {
     var db = req.db;
     var collection = db.get('assignmentcollection');
     collection.find({},{},function(e,docs){
-        console.log("docs = " + docs);
-        console.log("docs = " + docs[0].phase);
+        console.log("docs11a = " + docs);
+        console.log("docs11a = " + docs[0].phase);
 
         res.render('ph1sp1admin', {
-            "questions" : docs
-        });
-    });
-});
-
-/* SHOW Phase2Sprint2 page. */
-router.get('/ph2sp1', function (req, res) {
-    var db = req.db;
-    var collection = db.get('assignmentcollection');
-    collection.find({},{},function(e,docs){
-        console.log("docs = " + docs);
-        console.log("docs = " + docs[2].sprint);
-
-        res.render('ph2sp1', {
             "questions" : docs,
-            "title": "Phase 2 Assignments"
+            "answers" : docs,
+            "tasks" : docs
         });
     });
 });
 
-///* SHOW Phase2Admin page. */
-//router.get('/ph2sp1admin', function (req, res) {
-//    res.render('ph2sp1admin', { title: 'Phase 2 Assign | Admin' });
-//});
+/* POST to Add task ph1sp1admin */
+router.post('/addTaskSave11', function(req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    var taskInput = req.body.inputTask;
+    console.log("Task is =" + taskInput);
+
+
+    // Set our collection
+    var collection = db.get('assignmentcollection');
+
+    // Submit to the DB
+    collection.update(
+        { phase: "phase1", sprint: "sprint1" },
+        { $push: { tasklist : { task : taskInput }}},
+        function (err, doc) {
+            if (err) {
+                console.log("error saving sprint 1 to the database");
+
+                // If it failed, return error
+                res.send("There was a problem saving sprint 1 to the database.");
+            }
+            else {
+                console.log("inserted comments: " + taskInput);
+
+                // If it worked, set the header so the address bar doesn't still say /adduser
+                res.location("ph1sp1admin");
+                // And forward to success page
+                res.redirect("ph1sp1admin");
+            }
+        });
+});
+
+/* POST to Add Question ph1sp1admin */
+router.post('/addAnswerSave11', function(req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    var answerInput = req.body.inputAnswer;
+    console.log("Answer is =" + answerInput);
+
+
+    // Set our collection
+    var collection = db.get('assignmentcollection');
+
+    // Submit to the DB
+    collection.update(
+        { phase: "phase1", sprint: "sprint1" },
+        { $push: { answerlist : { answer : answerInput }}},
+        function (err, doc) {
+            if (err) {
+                console.log("error saving sprint 1 to the database");
+
+                // If it failed, return error
+                res.send("There was a problem saving sprint 1 to the database.");
+            }
+            else {
+                console.log("inserted comments: " + answerInput);
+
+                // If it worked, set the header so the address bar doesn't still say /adduser
+                res.location("ph1sp1admin");
+                // And forward to success page
+                res.redirect("ph1sp1admin");
+            }
+        });
+});
 
 /* GET Phase2Sprint1Admin Questions page. */
 router.get('/ph2sp1admin', function (req, res) {
@@ -509,10 +592,49 @@ router.get('/ph2sp1admin', function (req, res) {
         console.log("docs = " + docs[2].phase);
 
         res.render('ph2sp1admin', {
-            "questions" : docs
+            "questions" : docs,
+            "answers" : docs
         });
     });
 });
+
+/* POST to Add Answer ph2sp1admin */
+router.post('/addAnswerSave21', function(req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    var answerInput = req.body.inputAnswer;
+    console.log("Answer is =" + answerInput);
+
+
+    // Set our collection
+    var collection = db.get('assignmentcollection');
+
+    // Submit to the DB
+    collection.update(
+        { phase: "phase2", sprint: "sprint2" },
+        { $push: { answerlist : { answer : answerInput }}},
+        function (err, doc) {
+            if (err) {
+                console.log("error saving sprint 1 to the database");
+
+                // If it failed, return error
+                res.send("There was a problem saving sprint 1 to the database.");
+            }
+            else {
+                console.log("inserted comments: " + answerInput);
+
+                // If it worked, set the header so the address bar doesn't still say /adduser
+                res.location("ph2sp1");
+                // And forward to success page
+                res.redirect("ph2sp1");
+            }
+        });
+});
+
+
+
 
 /* GET order submit page. */
 router.get('/userOrderSubmit', function(req, res) {

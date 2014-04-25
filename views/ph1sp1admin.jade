@@ -2,30 +2,32 @@ extends layoutadmin
 
 block content
     .row
-        .col-md-2.main-sidebar
+        .col-md-2
             .sidebar(style='border-right: 1px solid grey; padding-right: 0; border-bottom: 1px solid grey;')
                 ul.nav.nav-sidebar
                     p.phases Phase I
                         ul
                             li.sprints
-                                a(href='/ph1sp1admin') Sprint 1
+                                a(href='/ph2sp1admin') Sprint 1
 
 
         .col-md-8
-            h2 Sprint 1: HTML5 (Canvas/CSS3/D3/SVG)
-            p(style='white-space:pre;')
-                |* Introduction to HTML5 (instructor-led)
-                |Tasks: creating HTML5 Web pages with HTML5 technologies
-                |+ overview of HTML5 technologies
-                |+ CSS3
-                |+ HTML5 Canvas
-                |+ SVG
-                |+ download/install Eclipse
-                |+ install Android
-                |+ create a default Android application
-                |+ deploy the application to a mobile device
-                |+ quick overview of D3
-                |+ create a bar chart using D3
+            h2 Sprint 1: Node.js Intro
+            ul
+                li Introduction to HTML5 (instructor-led)
+                li Introduction to HTML5 (instructor-led)
+                li Tasks: creating HTML5 Web pages with HTML5 technologies
+                li overview of HTML5 technologies
+                li CSS3
+                li HTML5 Canvas
+                li SVG
+                li
+                    form#formSubmitTask(name="addTask",method="post",action="/addTaskSave11")
+                        each task in tasks[0].tasklist
+                            li
+                                p= task.task
+                        input#inputTask(type="text", placeholder="Submit Task", name="inputTask")
+                        button#btnSubmit(type="submit") Submit Task
 
             h3 Assignments
 
@@ -64,15 +66,13 @@ block content
             //button#btnSubmit(type="submit") submit
 
             h3 Questions
-            form#formSubmitQuestion(name="addQuestion",method="post",action="/addQuestionSave")
-                    each question in questions[0].questionlist
-                        li
-                            p= question.question
-            input#inputAnswer(type="text", placeholder="Submit Answer", name="Answer")
-            button#btnSubmit(type="submit") submit
+            form#formSubmitAnswer(name="addAnswer",method="post",action="/addAnswerSave11")
+                each question in questions[0].questionlist
+                    li
+                        p= question.question
 
-
-
+                input#inputAnswer(type="text", placeholder="Submit Answer", name="inputAnswer")
+                button#btnSubmit(type="submit") Submit Answer
 
 
 

@@ -64,12 +64,12 @@ block content
             //button#btnSubmit(type="submit") submit
 
             h3 Questions
-            form#formSubmitQuestion(name="addQuestion",method="post",action="/addQuestionSave")
+            form#formSubmitAnswer(name="addAnswer",method="post",action="/addAnswerSave21")
                 each question in questions[0].questionlist
                     li
                         p= question.question
-            input#inputAnswer(type="text", placeholder="Submit Answer", name="Answer")
-            button#btnSubmit(type="submit") submit
+                input#inputAnswer(type="text", placeholder="Submit Answer", name="inputAnswer")
+                button#btnSubmit(type="submit") Submit Answer
 
 
 
