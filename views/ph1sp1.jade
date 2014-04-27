@@ -15,13 +15,6 @@ block content
         .col-md-8
             h2 Sprint 1: HTML5 (Canvas/CSS3/D3/SVG)
             ul
-                li Introduction to HTML5 (instructor-led)
-                li Introduction to HTML5 (instructor-led)
-                li Tasks: creating HTML5 Web pages with HTML5 technologies
-                li overview of HTML5 technologies
-                li CSS3
-                li HTML5 Canvas
-                li SVG
                 li
                     form#formSubmitTask(name="addTask",method="post",action="/addTaskSave11")
                         each task in tasks[0].tasklist
@@ -31,22 +24,29 @@ block content
                         //button#btnSubmit(type="submit") Submit Task
 
             h3 Assignments
-            p(style='white-space:pre;')
-                |* Introduction to HTML5 (instructor-led)
-                |Tasks: creating HTML5 Web pages with HTML5 technologies
-                |+ overview of HTML5 technologies
-                |+ CSS3
-            form#formsubmitAssignment(name="addAssignment",method="get",action="/addAssignmentSave")
-                //input#inputQuestion(type="file", placeholder=".zip", name="Assignment")
-                //button#btnSubmit(type="submit") Submit Assignment
+            ul
+                li Introduction to HTML5 (instructor-led)
+                li Tasks: creating HTML5 Web pages with HTML5 technologies
+                li Overview of HTML5 technologies
+                li CSS3
+                form#formsubmitAssignment(name="addAssignment",method="get",action="/addAssignmentSave")
+                    //input#inputQuestion(type="file", placeholder=".zip", name="Assignment")
+                    //button#btnSubmit(type="submit") Submit Assignment
 
             h3 Questions
-            form#formSubmitQuestion(name="addQuestion",method="post",action="/addQuestionSave11")
+            ol
                 each question in questions[0].questionlist
                     li
                         p= question.question
-                input#inputQuestion(type="text", placeholder="Question", name="inputQuestion")
-                button#btnSubmit(type="submit") Submit Question
-                //each answer in answers[0].answerlist
-                //    li
-                //        p= answer.answer
+
+                form#formSubmitQuestion(name="addQuestion",method="post",action="/addQuestionSave11")
+                    input#inputQuestion(type="text", placeholder="Question", name="inputQuestion")
+                    button#btnSubmit(type="submit") Submit Question
+
+            h3 Answers
+            ol
+                each answer in answers[0].answerlist
+                    li
+                        p= answer.answer
+
+

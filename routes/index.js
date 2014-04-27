@@ -264,7 +264,8 @@ router.get('/ph1sp1', function (req, res) {
 
         res.render('ph1sp1', {
             "questions" : docs,
-            "tasks" : docs
+            "tasks" : docs,
+            "answers" : docs
         });
 
     });
@@ -548,7 +549,51 @@ router.post('/addTaskSave11', function(req, res) {
         });
 });
 
-/* POST to Add Question ph1sp1admin */
+/* POST to Add Grade ph1sp1admin */
+router.post('/addGradeSave11', function(req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    var gradeBill = req.body.billsGrade;
+    console.log("billsGrade is =" + gradeBill);
+    var gradeJose = req.body.josesGrade;
+    console.log("josesGrade is =" + gradeJose);
+    var gradePeter = req.body.petersGrade;
+    console.log("petersGrade is =" + gradePeter);
+    var gradeSean = req.body.seansGrade;
+    console.log("seansGrade is =" + gradeSean);
+    var gradeTaylor = req.body.taylorsGrade;
+    console.log("taylorsGrade is =" + gradeTaylor);
+
+
+
+    // Set our collection
+    var collection = db.get('assignmentcollection');
+
+    // Submit to the DB
+    collection.update(
+        { phase: "phase1", sprint: "sprint1" },
+        { $push: { gradelist : { $each: [{ billsGrade : gradeBill },{ josesGrade : gradeJose },{ petersGrade : gradePeter },{ seansGrade : gradeSean },{ taylorsGrade : gradeTaylor }]}}},
+        function (err, doc) {
+            if (err) {
+                console.log("error saving sprint 1 to the database");
+
+                // If it failed, return error
+                res.send("There was a problem saving sprint 1 to the database.");
+            }
+            else {
+                console.log("inserted comments: " + gradeBill );
+
+                // If it worked, set the header so the address bar doesn't still say /adduser
+                res.location("ph1sp1admin");
+                // And forward to success page
+                res.redirect("ph1sp1admin");
+            }
+        });
+});
+
+/* POST to Add Answer ph1sp1admin */
 router.post('/addAnswerSave11', function(req, res) {
 
     // Set our internal DB variable
