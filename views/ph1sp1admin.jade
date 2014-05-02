@@ -12,11 +12,11 @@ block content
 
 
         .col-md-8
-            h2 Sprint 1: Node.js Intro
+            h2 Sprint 1: HTML5/CSS3/JavaScript
             ul
                 li
                     form#formSubmitTask(name="addTask",method="post",action="/addTaskSave11")
-                        each task in tasks[0].tasklist
+                        each task in tasks[5].tasklist
                             li
                                 p= task.task
                         input#inputTask(type="text", placeholder="Add Task", name="inputTask")
@@ -25,18 +25,7 @@ block content
             h3 Assignments
 
             .row
-                //.col-md-2
-                    //form#tableForm(action='getJson')
-                    //    select.selectpicker(data-style='btn-info', name='studentpicker')
-                    //        optgroup(label='Select Student')
-                    //            option(name='', value='0') Select Student
-                    //            option(name='Bill', value='1') Bill
-                    //            option(name='Jose', value='2') Jose
-                    //            option(name='Peter', value='3') Peter
-                    //            option(name='Sean', value='4') Sean
-                    //            option(name='Taylor', value='5') Taylor
-
-                .col-md-5
+                .col-md-4
                     ul
                         input#checkAssign(type="checkbox", name="assignment")
                         | *Introduction to HTML5 (instructor-led)
@@ -69,14 +58,23 @@ block content
                                         input#inputGrade(type="number", placeholder="Taylor", name="taylorsGrade",
                                         min="1",
                                         max="100")
-                                        button#btnSubmit(type="submit") submit
+                                        button#btnSubmit(type="submit") Submit
 
-            //input#submitAssignment(type="file", placeholder=".zip", name="Assignment")
-            //button#btnSubmit(type="submit") submit
+                .col-md-2
+                    - var billGrade = grades[2].gradelist[0].billsGrade
+                    - var joseGrade = grades[2].gradelist[1].josesGrade
+                    - var peterGrade = grades[2].gradelist[2].petersGrade
+                    - var seanGrade = grades[2].gradelist[3].seansGrade
+                    - var taylorGrade = grades[2].gradelist[4].taylorsGrade
+                    p.grades= "Bill: " + billGrade
+                    p.grades= "Jose: " + joseGrade
+                    p.grades= "Peter: " + peterGrade
+                    p.grades= "Sean: " + seanGrade
+                    p.grades= "Taylor: " + taylorGrade
 
             h3 Questions
             ol
-                each question in questions[0].questionlist
+                each question in questions[3].questionlist
                     li
                         p= question.question
                     form#formSubmitAnswer(name="addAnswer",method="post",action="/addAnswerSave11")

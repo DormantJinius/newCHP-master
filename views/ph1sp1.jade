@@ -17,7 +17,7 @@ block content
             ul
                 li
                     form#formSubmitTask(name="addTask",method="post",action="/addTaskSave11")
-                        each task in tasks[0].tasklist
+                        each task in tasks[5].tasklist
                             li
                                 p= task.task
                         //input#inputTask(type="text", placeholder="Submit Task", name="inputTask")
@@ -35,7 +35,7 @@ block content
 
             h3 Questions
             ol
-                each question in questions[0].questionlist
+                each question in questions[3].questionlist
                     li
                         p= question.question
 
@@ -45,7 +45,7 @@ block content
 
             h3 Answers
             ol
-                each answer in answers[0].answerlist
+                each answer in answers[4].answerlist
                     li
                         p= answer.answer
 

@@ -260,12 +260,14 @@ router.get('/ph1sp1', function (req, res) {
     collection.find({},{},function(e,docs){
         console.log("docs11 = " + docs);
         console.log("docs11 = " + docs[0].phase);
-        console.log("docs11 = " + docs[2].phase);
+        console.log("docs11 = " + docs[2].gradelist[0].billsGrade);
+        console.log("docs11 = " + docs[4].answerlist[0].answer);
 
         res.render('ph1sp1', {
             "questions" : docs,
             "tasks" : docs,
-            "answers" : docs
+            "answers" : docs,
+            "grades" : docs
         });
 
     });
@@ -321,7 +323,7 @@ router.post('/addQuestionSave11', function(req, res) {
 
     // Submit to the DB
     collection.update(
-        { phase: "phase1", sprint: "sprint1" },
+        { _id: 11},
         { $push: { questionlist : { question : questionInput }}},
         function (err, doc) {
         if (err) {
@@ -406,6 +408,8 @@ router.get('/ph2sp1', function (req, res) {
 
         res.render('ph2sp1', {
             "questions" : docs,
+            "answers" : docs,
+            "tasks" : docs,
             "title": "Phase 2 Assignments"
         });
     });
@@ -458,6 +462,8 @@ router.get('/ph2sp2', function (req, res) {
 
         res.render('ph2sp2', {
             "questions" : docs,
+            "answers" : docs,
+            "tasks" : docs,
             "title": "Phase 2 Assignments"
         });
     });
@@ -498,7 +504,7 @@ router.post('/addQuestionSave22', function(req, res) {
         });
 });
 
-/* GET Phase1Sprint1Admin Questions page. */
+/* GET Phase1Sprint1Admin page. */
 router.get('/ph1sp1admin', function (req, res) {
     var db = req.db;
     var collection = db.get('assignmentcollection');
@@ -509,7 +515,8 @@ router.get('/ph1sp1admin', function (req, res) {
         res.render('ph1sp1admin', {
             "questions" : docs,
             "answers" : docs,
-            "tasks" : docs
+            "tasks" : docs,
+            "grades" : docs
         });
     });
 });
@@ -573,8 +580,15 @@ router.post('/addGradeSave11', function(req, res) {
 
     // Submit to the DB
     collection.update(
-        { phase: "phase1", sprint: "sprint1" },
-        { $push: { gradelist : { $each: [{ billsGrade : gradeBill },{ josesGrade : gradeJose },{ petersGrade : gradePeter },{ seansGrade : gradeSean },{ taylorsGrade : gradeTaylor }]}}},
+        { gradelist : [
+            {'billsGrade': 0},
+            {'josesGrade': 0},
+            {'petersGrade': 0},
+            {'seansGrade': 0},
+            {'taylorsGrade': 0}
+        ]},
+        { gradelist : [
+            { billsGrade : gradeBill }, { josesGrade : gradeJose }, { petersGrade : gradePeter }, { seansGrade : gradeSean }, { taylorsGrade : gradeTaylor }]},
         function (err, doc) {
             if (err) {
                 console.log("error saving sprint 1 to the database");
@@ -638,9 +652,89 @@ router.get('/ph2sp1admin', function (req, res) {
 
         res.render('ph2sp1admin', {
             "questions" : docs,
-            "answers" : docs
+            "answers" : docs,
+            "tasks" : docs
         });
     });
+});
+
+/* POST to Add task ph2sp1admin */
+router.post('/addTaskSave21', function(req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    var taskInput = req.body.inputTask;
+    console.log("Task is =" + taskInput);
+
+
+    // Set our collection
+    var collection = db.get('assignmentcollection');
+
+    // Submit to the DB
+    collection.update(
+        { phase: "phase2", sprint: "sprint1" },
+        { $push: { tasklist : { task : taskInput }}},
+        function (err, doc) {
+            if (err) {
+                console.log("error saving sprint 1 to the database");
+
+                // If it failed, return error
+                res.send("There was a problem saving sprint 1 to the database.");
+            }
+            else {
+                console.log("inserted comments: " + taskInput);
+
+                // If it worked, set the header so the address bar doesn't still say /adduser
+                res.location("ph2sp1admin");
+                // And forward to success page
+                res.redirect("ph2sp1admin");
+            }
+        });
+});
+
+/* POST to Add Grade ph2sp1admin */
+router.post('/addGradeSave21', function(req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    var gradeBill = req.body.billsGrade;
+    console.log("billsGrade is =" + gradeBill);
+    var gradeJose = req.body.josesGrade;
+    console.log("josesGrade is =" + gradeJose);
+    var gradePeter = req.body.petersGrade;
+    console.log("petersGrade is =" + gradePeter);
+    var gradeSean = req.body.seansGrade;
+    console.log("seansGrade is =" + gradeSean);
+    var gradeTaylor = req.body.taylorsGrade;
+    console.log("taylorsGrade is =" + gradeTaylor);
+
+
+
+    // Set our collection
+    var collection = db.get('assignmentcollection');
+
+    // Submit to the DB
+    collection.update(
+        { phase: "phase2", sprint: "sprint1" },
+        { $push: { gradelist : { $each: [{ billsGrade : gradeBill },{ josesGrade : gradeJose },{ petersGrade : gradePeter },{ seansGrade : gradeSean },{ taylorsGrade : gradeTaylor }]}}},
+        function (err, doc) {
+            if (err) {
+                console.log("error saving sprint 1 to the database");
+
+                // If it failed, return error
+                res.send("There was a problem saving sprint 1 to the database.");
+            }
+            else {
+                console.log("inserted comments: " + gradeBill );
+
+                // If it worked, set the header so the address bar doesn't still say /adduser
+                res.location("ph2sp1admin");
+                // And forward to success page
+                res.redirect("ph2sp1admin");
+            }
+        });
 });
 
 /* POST to Add Answer ph2sp1admin */

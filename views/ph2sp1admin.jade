@@ -13,37 +13,32 @@ block content
 
         .col-md-8
             h2 Sprint 1: Node.js Intro
-            p(style='white-space:pre;')
-                |* Introduction to HTML5 (instructor-led)
-                |Tasks: creating HTML5 Web pages with HTML5 technologies
-                |+ overview of HTML5 technologies
-                |+ CSS3
-                |+ HTML5 Canvas
-                |+ SVG
-                |+ download/install Eclipse
-                |+ install Android
-                |+ create a default Android application
-                |+ deploy the application to a mobile device
-                |+ quick overview of D3
-                |+ create a bar chart using D3
+            ul
+                li
+                    form#formSubmitTask(name="addTask",method="post",action="/addTaskSave21")
+                        each task in tasks[5].tasklist
+                            li
+                                p= task.task
+                        input#inputTask(type="text", placeholder="Add Task", name="inputTask")
+                        button#btnSubmit(type="submit") Submit
 
             h3 Assignments
 
             .row
-                .col-md-2
-                    form#tableForm(action='getJson')
-                        select.selectpicker(data-style='btn-info', name='studentpicker')
-                            optgroup(label='Select Student')
-                                option(name='', value='0') Select Student
-                                option(name='Bill', value='1') Bill
-                                option(name='Jose', value='2') Jose
-                                option(name='Peter', value='3') Peter
-                                option(name='Sean', value='4') Sean
-                                option(name='Taylor', value='5') Taylor
+                //.col-md-2
+                //    form#tableForm(action='getJson')
+                //        select.selectpicker(data-style='btn-info', name='studentpicker')
+                //            optgroup(label='Select Student')
+                //                option(name='', value='0') Select Student
+                //                option(name='Bill', value='1') Bill
+                //                option(name='Jose', value='2') Jose
+                //                option(name='Peter', value='3') Peter
+                //                option(name='Sean', value='4') Sean
+                //                option(name='Taylor', value='5') Taylor
 
                 .col-md-5
                     input#checkAssign(type="checkbox", name="assignment")
-                    | *Introduction to HTML5 (instructor-led)
+                    | NodeJS/MongoDB
                     br
                     input#checkAssign(type="checkbox", name="assignment")
                     | + overview of HTML5 technologies
@@ -52,24 +47,41 @@ block content
                     | Tasks: creating HTML5 Web pages with HTML5 technologies
                     br
                     input#checkAssign(type="checkbox", name="assignment")
-                    | + CSS3
+                    | *Introduction to HTML5 (instructor-led)
 
-                .col-md-3
-                    h4 Grade
-                    form#formAddGrade(name="addGrade",method="post",action="/addGrade")
-                    input#inputGrade(type="number", placeholder="Score", name="Grade", min="1", max="100")
-                    button#btnSubmit(type="submit") submit
+                .col-md-7
+                    table
+                        thead
+                            tr: th Grades
+                        tbody
+                            tr
+                                td
+                                    form#formAddGrade(name="addGrade",method="post",action="/addGradeSave21")
+                                        input#inputGrade(type="number", placeholder="Bill", name="billsGrade", min="1",
+                                        max="100")
+                                        input#inputGrade(type="number", placeholder="Jose", name="josesGrade", min="1",
+                                        max="100")
+                                        input#inputGrade(type="number", placeholder="Peter", name="petersGrade", min="1",
+                                        max="100")
+                                        input#inputGrade(type="number", placeholder="Sean", name="seansGrade", min="1",
+                                        max="100")
+                                        input#inputGrade(type="number", placeholder="Taylor", name="taylorsGrade",
+                                        min="1",
+                                        max="100")
+                                        button#btnSubmit(type="submit") Submit
+
 
             //input#submitAssignment(type="file", placeholder=".zip", name="Assignment")
             //button#btnSubmit(type="submit") submit
 
             h3 Questions
-            form#formSubmitAnswer(name="addAnswer",method="post",action="/addAnswerSave21")
-                each question in questions[0].questionlist
+            ol
+                each question in questions[3].questionlist
                     li
                         p= question.question
-                input#inputAnswer(type="text", placeholder="Submit Answer", name="inputAnswer")
-                button#btnSubmit(type="submit") Submit Answer
+                    form#formSubmitAnswer(name="addAnswer",method="post",action="/addAnswerSave21")
+                        input#inputAnswer(type="text", placeholder="Enter text", name="inputAnswer")
+                        button#btnSubmit(type="submit") Submit Answer
 
 
 

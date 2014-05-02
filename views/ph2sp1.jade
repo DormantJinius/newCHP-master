@@ -12,39 +12,40 @@ block content
                             li.sprints
                                 a(href='/ph2sp2') Sprint 2
 
-
         .col-md-8
             h2 Sprint 1: Node.js Intro
-            p(style='white-space:pre;')
-                |* Introduction to HTML5 (instructor-led)
-                |Tasks: creating HTML5 Web pages with HTML5 technologies
-                |+ overview of HTML5 technologies
-                |+ CSS3
-                |+ HTML5 Canvas
-                |+ SVG
-                |+ download/install Eclipse
-                |+ install Android
-                |+ create a default Android application
-                |+ deploy the application to a mobile device
-                |+ quick overview of D3
-                |+ create a bar chart using D3
+            ul
+                li
+                    form#formSubmitTask(name="addTask",method="post",action="/addTaskSave21")
+                        each task in tasks[5].tasklist
+                            li
+                                p= task.task
 
             h3 Assignments
-            p(style='white-space:pre;')
-                |* Introduction to HTML5 (instructor-led)
-                |Tasks: creating HTML5 Web pages with HTML5 technologies
-                |+ overview of HTML5 technologies
-                |+ CSS3
-            input#inputQuestion(type="file", placeholder=".zip", name="Assignment")
-            button#btnSubmit(type="submit") submit
+            ul
+                li Introduction to HTML5 (instructor-led)
+                li Tasks: creating HTML5 Web pages with HTML5 technologies
+                li Overview of HTML5 technologies
+                li CSS3
+                form#formsubmitAssignment(name="addAssignment",method="get",action="/addAssignmentSave")
+                    //input#inputQuestion(type="file", placeholder=".zip", name="Assignment")
+                    //button#btnSubmit(type="submit") Submit Assignment
 
             h3 Questions
-            form#formSubmitQuestion(name="addQuestion",method="post",action="/addQuestionSave21")
-                each question in questions[2].questionlist
+            ol
+                each question in questions[3].questionlist
                     li
                         p= question.question
-                input#inputQuestion(type="text", placeholder="Question", name="inputQuestion")
-                button#btnSubmit(type="submit") Submit Question
+
+                form#formSubmitQuestion(name="addQuestion",method="post",action="/addQuestionSave21")
+                    input#inputQuestion(type="text", placeholder="Question", name="inputQuestion")
+                    button#btnSubmit(type="submit") Submit Question
+
+            h3 Answers
+            ol
+                each answer in answers[4].answerlist
+                    li
+                        p= answer.answer
 
 
 
